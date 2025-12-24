@@ -1,0 +1,10 @@
+artifact_location: file:C:/Users/lenovo/Desktop/customer_churn/Customer_Churn_MlPipeline_Dvc_Mlflow/mlruns/129153944882930401/models/m-74bf85cd927c4c969af10ca293bc3446/artifacts
+creation_timestamp: 1762861852394
+experiment_id: '129153944882930401'
+last_updated_timestamp: 1762861857631
+model_id: m-74bf85cd927c4c969af10ca293bc3446
+model_type: null
+name: model
+source_run_id: 2c1cd46541224d01a49de9b7d1184ba0
+status: 2
+status_message: null

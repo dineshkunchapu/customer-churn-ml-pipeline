@@ -1,0 +1,14 @@
+artifact_uri: file:C:/Users/lenovo/Desktop/customer_churn/Customer_Churn_MlPipeline_Dvc_Mlflow/mlruns/129153944882930401/2c1cd46541224d01a49de9b7d1184ba0/artifacts
+end_time: 1762861857723
+entry_point_name: ''
+experiment_id: '129153944882930401'
+lifecycle_stage: active
+run_id: 2c1cd46541224d01a49de9b7d1184ba0
+run_name: train_run_20251111_172051
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1762861851376
+status: 3
+tags: []
+user_id: lenovo

@@ -1,0 +1,98 @@
+schema: '2.0'
+stages:
+  ingestion:
+    cmd: python -m src.ingestion
+    outs:
+    - path: data/raw/Telco-Customer-Churn.csv
+      hash: md5
+      md5: 7f07de26b054de4c36eed95a1277fe21
+      size: 978285
+  preprocessing:
+    cmd: python -m src.preprocessing
+    deps:
+    - path: data/raw/Telco-Customer-Churn.csv
+      hash: md5
+      md5: 7f07de26b054de4c36eed95a1277fe21
+      size: 978285
+    outs:
+    - path: data/processed/cleaned.csv
+      hash: md5
+      md5: f3d1e29ef6c8de9804e0bd754561a095
+      size: 901526
+  features:
+    cmd: python -c "from src.preprocessing import clean_data; from src.features 
+      import prepare_features; import pandas as pd; 
+      df=pd.read_csv('data/processed/cleaned.csv'); 
+      X,y,_,_=prepare_features(df); 
+      X.to_csv('data/processed/features.csv',index=False); 
+      y.to_csv('data/processed/target.csv',index=False)"
+    deps:
+    - path: data/processed/cleaned.csv
+      hash: md5
+      md5: f3d1e29ef6c8de9804e0bd754561a095
+      size: 901526
+    - path: src/features.py
+      hash: md5
+      md5: 0a9a5709b8eb661b0fa1e94c75aef158
+      size: 1716
+    outs:
+    - path: data/processed/features.csv
+      hash: md5
+      md5: 52d8d557f6578149f2b42cf82ae35102
+      size: 1576959
+    - path: data/processed/target.csv
+      hash: md5
+      md5: 47b28afa61abed698521fb6194ae89ed
+      size: 21136
+  train:
+    cmd: python -m src.train
+    deps:
+    - path: data/processed/features.csv
+      hash: md5
+      md5: 52d8d557f6578149f2b42cf82ae35102
+      size: 1576959
+    - path: data/processed/target.csv
+      hash: md5
+      md5: 47b28afa61abed698521fb6194ae89ed
+      size: 21136
+    - path: src/train.py
+      hash: md5
+      md5: 03bca5a70d2425cbe31348dc46d409eb
+      size: 4366
+    outs:
+    - path: artifacts/model.pkl
+      hash: md5
+      md5: ce474d37061a3a75813ef8e547cf1043
+      size: 4215321
+    - path: artifacts/ohe.pkl
+      hash: md5
+      md5: 83107e9d63fe0005542cfcc34cf93f7d
+      size: 4354
+    - path: artifacts/scaler.pkl
+      hash: md5
+      md5: 364eae5f3ae65d55603c514165f85029
+      size: 959
+  evaluate:
+    cmd: python -m src.evaluate
+    deps:
+    - path: artifacts/model.pkl
+      hash: md5
+      md5: ce474d37061a3a75813ef8e547cf1043
+      size: 4215321
+    - path: data/processed/features.csv
+      hash: md5
+      md5: 52d8d557f6578149f2b42cf82ae35102
+      size: 1576959
+    - path: data/processed/target.csv
+      hash: md5
+      md5: 47b28afa61abed698521fb6194ae89ed
+      size: 21136
+    - path: src/evaluate.py
+      hash: md5
+      md5: c7b1baaea1dec3ff5092563c2f764ff2
+      size: 1132
+    outs:
+    - path: artifacts/evaluation_report.json
+      hash: md5
+      md5: 1a09a91c19e26f39a1451b3cfa4dd19c
+      size: 101

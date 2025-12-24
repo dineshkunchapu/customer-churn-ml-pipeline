@@ -1,0 +1,41 @@
+stages:
+  ingestion:
+    cmd: python -m src.ingestion
+    outs:
+      - data/raw/Telco-Customer-Churn.csv
+
+  preprocessing:
+    cmd: python -m src.preprocessing
+    deps:
+      - data/raw/Telco-Customer-Churn.csv
+    outs:
+      - data/processed/cleaned.csv
+
+  features:
+    cmd: python -c "from src.preprocessing import clean_data; from src.features import prepare_features; import pandas as pd; df=pd.read_csv('data/processed/cleaned.csv'); X,y,_,_=prepare_features(df); X.to_csv('data/processed/features.csv',index=False); y.to_csv('data/processed/target.csv',index=False)"
+    deps:
+      - src/features.py
+      - data/processed/cleaned.csv
+    outs:
+      - data/processed/features.csv
+      - data/processed/target.csv
+
+  train:
+    cmd: python -m src.train
+    deps:
+      - src/train.py
+      - data/processed/features.csv
+      - data/processed/target.csv
+    outs:
+      - artifacts/model.pkl
+      - artifacts/ohe.pkl
+      - artifacts/scaler.pkl
+  evaluate:
+    cmd: python -m src.evaluate
+    deps:
+      - src/evaluate.py
+      - artifacts/model.pkl
+      - data/processed/features.csv
+      - data/processed/target.csv
+    metrics:
+      - artifacts/evaluation_report.json

@@ -1,0 +1,13 @@
+data:
+  raw_path: data/raw/Telco-Customer-Churn.csv
+  processed_path: data/processed/cleaned.csv
+
+model:
+  test_size: 0.2
+  random_seed: 42
+  n_estimators: 150
+  max_depth: 8
+
+mlflow:
+  tracking_uri: "file:./mlruns"
+  experiment_name: "telecom-churn"
