@@ -21,8 +21,6 @@ It demonstrates **real-world MLOps practices** such as data versioning, pipeline
 
 ## 🌐 Live Demo
 
-🔗 **Streamlit Application:**  
-https://customerchurnmlpipelinedvcmlflow-jqzis8eacgadsmsmczq4bm.streamlit.app/
 
 ---
 
