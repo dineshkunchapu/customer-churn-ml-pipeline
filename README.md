@@ -28,8 +28,6 @@ https://customerchurnmlpipelinedvcmlflow-jqzis8eacgadsmsmczq4bm.streamlit.app/
 
 ## 📊 Screenshots
 
-### Streamlit Dashboard
-![Streamlit Dashboard](readme_imgs/muns3.png)
 
 ### MLflow Experiment Tracking
 ![MLflow Metrics](readme_imgs/num2.png)
